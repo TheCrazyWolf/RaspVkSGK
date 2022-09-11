@@ -45,7 +45,6 @@ namespace RaspBotVK
             }
 
         }
-
         static void RaspStudent(int id)
         {
             try
@@ -90,7 +89,6 @@ namespace RaspBotVK
                 Write(ex.ToString());
             }
         }
-
         static void RaspTeacher(int id)
         {
             try
@@ -135,7 +133,6 @@ namespace RaspBotVK
                 Write(ex.ToString());
             }
         }
-
         static void Thead()
         {
             while (true)
