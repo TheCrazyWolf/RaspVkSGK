@@ -31,7 +31,6 @@ namespace RaspBotVK
             }
         }
 
-
         /// <summary>
         /// Мировые запросы и ответы
         /// </summary>
@@ -65,18 +64,18 @@ namespace RaspBotVK
                     var parse_nextday = JsonSerializer.Deserialize<RaspisanieStudent>(response_nextday);
                     var parse_today = JsonSerializer.Deserialize<RaspisanieStudent>(response_today);
 
-                    string text = $"\nДата - {parse_today.date}";
+                    string text = $"\n{parse_today.date}";
 
                     foreach (var itemToday in parse_today.lessons)
                     {
-                        text += $"\n{itemToday.num}. + {itemToday.title} + {itemToday.teachername} + {itemToday.cab}";
+                        text += $"\n[{itemToday.num}] {itemToday.title} ({itemToday.teachername}) {itemToday.cab}";
                     }
 
-                    text += $"\nДата - {parse_nextday.date}";
+                    text += $"\n\n{parse_nextday.date}";
 
                     foreach (var itemNext in parse_nextday.lessons)
                     {
-                        text += $"\n{itemNext.num}. + {itemNext.title} + {itemNext.teachername} + {itemNext.cab}";
+                        text += $"\n[{itemNext.num}] {itemNext.title} ({itemNext.teachername}) {itemNext.cab}";
                     }
 
                     Write($"Task # {item.Id}. Отправка расписание в ВК в ЛС - ({item.ValueIdGroupVk}). Тип: {item.Type}.");
@@ -109,18 +108,18 @@ namespace RaspBotVK
                     var parse_nextday = JsonSerializer.Deserialize<RaspisanieTeacher>(response_nextday);
                     var parse_today = JsonSerializer.Deserialize<RaspisanieTeacher>(response_today);
 
-                    string text = $"\nДата - {parse_today.date}";
+                    string text = $"\n{parse_today.date}";
 
                     foreach (var itemToday in parse_today.lessons)
                     {
-                        text += $"\n{itemToday.num}. + {itemToday.nameGroup} + {itemToday.title} + {itemToday.cab}";
+                        text += $"\n[{itemToday.num}] [{itemToday.nameGroup}] {itemToday.title} {itemToday.cab}";
                     }
 
-                    text += $"\nДата - {parse_nextday.date}";
+                    text += $"\n\n{parse_nextday.date}";
 
                     foreach (var itemNext in parse_nextday.lessons)
                     {
-                        text += $"\n{itemNext.num}. + {itemNext.nameGroup} + {itemNext.title}  + {itemNext.cab}";
+                        text += $"\n[{itemNext.num}] [{itemNext.nameGroup}] {itemNext.title} {itemNext.cab}";
                     }
 
                     Write($"Task # {item.Id}. Отправка расписание в ВК в ЛС - ({item.ValueIdGroupVk}). Тип: {item.Type}.");
@@ -161,16 +160,20 @@ namespace RaspBotVK
                         default:
                             break;
                     }
+
+                    //Задержка между тасками
+                    Thread.Sleep(2000);
                 }
 
             }
         }
 
+
+
         static void Write(string msg)
         {
             Console.Write($"[{DateTime.Now}] {msg}\n");
         }
-
         static void LoadSettings()
         {
             switch (File.Exists("props.json"))
@@ -195,8 +198,6 @@ namespace RaspBotVK
             }
 
         }
-
-
         static void SaveSettings()
         {
             try
@@ -211,6 +212,8 @@ namespace RaspBotVK
             }
         }
 
+
+        //ВЫПОЛНЕНИЕ КОМАНД ИЗ МЕНЮ
         static void Command(string cmd)
         {
             switch (cmd)
@@ -260,10 +263,6 @@ namespace RaspBotVK
                     break;
             }
         }
-
-
-        //ВЫПОЛНЕНИЕ КОМАНД ИЗ МЕНЮ
-
         static void ShowGroups()
         {
             Write("Выполняется запрос ожидайте..");
@@ -363,7 +362,6 @@ namespace RaspBotVK
 
             SaveSettings();
         }
-
         static void DelValueTask()
         {
             Write("РЕЖИМ УДАЛЕНИЕ ЗАДАЧ");
@@ -400,7 +398,6 @@ namespace RaspBotVK
             }
 
         }
-
         static void NewSettings()
         {
             Write("Введите пожалуйста токен от группы с правами - отправлять сообщения!");
