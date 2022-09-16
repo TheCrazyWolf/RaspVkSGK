@@ -57,20 +57,21 @@ namespace RaspBotVK
 
                 if (item.Result != response_nextday)
                 {
-                    string response_today = Response(prop.GetStringApiAsuForGroup(DateTime.Now.ToString("yyyy-MM-dd"), item.Value));
+                   // string response_today = Response(prop.GetStringApiAsuForGroup(DateTime.Now.ToString("yyyy-MM-dd"), item.Value));
 
                     Write($"Task # {item.Id}. Парсинг данных");
                     var parse_nextday = JsonSerializer.Deserialize<RaspisanieStudent>(response_nextday);
-                    var parse_today = JsonSerializer.Deserialize<RaspisanieStudent>(response_today);
+                    //var parse_today = JsonSerializer.Deserialize<RaspisanieStudent>(response_today);
 
-                    string text = $"\n{parse_today.date}";
+                    string text = "";
 
-                    foreach (var itemToday in parse_today.lessons)
-                    {
-                        text += $"\n[{itemToday.num}] {itemToday.title} ({itemToday.teachername}) {itemToday.cab}";
-                    }
+                    // text= $"\n{parse_today.date}";
+                    //foreach (var itemToday in parse_today.lessons)
+                    //{
+                    //    text += $"\n[{itemToday.num}] {itemToday.title} ({itemToday.teachername}) {itemToday.cab}";
+                    //}
 
-                    text += $"\n\n{parse_nextday.date}";
+                    // text += $"\n\n{parse_nextday.date}";
 
                     foreach (var itemNext in parse_nextday.lessons)
                     {
@@ -106,12 +107,14 @@ namespace RaspBotVK
                     var parse_nextday = JsonSerializer.Deserialize<RaspisanieTeacher>(response_nextday);
                     var parse_today = JsonSerializer.Deserialize<RaspisanieTeacher>(response_today);
 
-                    string text = $"\n{parse_today.date}";
+                    string text = "";
 
-                    foreach (var itemToday in parse_today.lessons)
-                    {
-                        text += $"\n[{itemToday.num}] [{itemToday.nameGroup}] {itemToday.title} {itemToday.cab}";
-                    }
+                    // text = $"\n{parse_today.date}";
+
+                    //foreach (var itemToday in parse_today.lessons)
+                    //{
+                    //    text += $"\n[{itemToday.num}] [{itemToday.nameGroup}] {itemToday.title} {itemToday.cab}";
+                    //}
 
                     text += $"\n\n{parse_nextday.date}";
 
